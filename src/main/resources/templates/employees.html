@@ -28,10 +28,10 @@
         </tr>
         </thead>
         <tbody id="employeeTableBody">
-        <tr th:if="${employees.isEmpty()}">
+        <tr th:if="${employeePage.content.isEmpty()}">
             <td colspan="7" class="text-center">The db is currently empty  <a class="btn btn-primary mb-3" th:href="@{/employees/new}">Add one ?</a></td>
         </tr>
-        <tr th:each="employee : ${employees}">
+        <tr th:each="employee : ${employeePage.content}">
             <td th:text="${employee.id}"></td>
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.email}"></td>
@@ -45,6 +45,23 @@
         </tr>
         </tbody>
     </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${employeePage.hasPrevious()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/employees(page=${employeePage.number - 1}, keyword=${keyword})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, employeePage.totalPages - 1)}" th:classappend="${i == employeePage.number} ? 'active'">
+                <a class="page-link" th:href="@{/employees(page=${i}, keyword=${keyword})}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${employeePage.hasNext()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/employees(page=${employeePage.number + 1}, keyword=${keyword})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <script>
@@ -58,10 +75,10 @@
                 success: function(data) {
                     var tableBody = $('#employeeTableBody');
                     tableBody.empty();
-                    if (data.length === 0) {
+                    if (data.content.length === 0) {
                         tableBody.append('<tr><td colspan="7" class="text-center">No employees found</td></tr>');
                     } else {
-                        $.each(data, function(index, employee) {
+                        $.each(data.content, function(index, employee) {
                             var row = '<tr>' +
                                 '<td>' + employee.id + '</td>' +
                                 '<td>' + employee.name + '</td>' +

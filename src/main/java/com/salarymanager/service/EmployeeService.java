@@ -3,9 +3,11 @@ package com.salarymanager.service;
 import com.salarymanager.model.Employee;
 import com.salarymanager.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,8 +16,8 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public Page<Employee> getAllEmployees(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
     }
 
     public Optional<Employee> getEmployeeById(Long id) {
@@ -30,7 +32,7 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
     }
 
-    public List<Employee> searchEmployees(String keyword) {
-        return employeeRepository.findByNameContainingOrEmailContainingOrDepartmentContaining(keyword, keyword, keyword);
+    public Page<Employee> searchEmployees(String keyword, Pageable pageable) {
+        return employeeRepository.findByNameContainingOrEmailContainingOrDepartmentContaining(keyword, keyword, keyword, pageable);
     }
 }
