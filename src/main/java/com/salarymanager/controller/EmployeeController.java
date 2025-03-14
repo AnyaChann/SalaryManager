@@ -1,12 +1,11 @@
 package com.salarymanager.controller;
 
+import com.salarymanager.model.Employee;
+import com.salarymanager.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.salarymanager.model.Employee;
-import com.salarymanager.service.EmployeeService;
 
 import java.util.List;
 
@@ -18,10 +17,22 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping
-    public String listEmployees(Model model) {
-        List<Employee> employees = employeeService.getAllEmployees();
+    public String listEmployees(Model model, @RequestParam(value = "keyword", required = false) String keyword) {
+        List<Employee> employees;
+        if (keyword != null && !keyword.isEmpty()) {
+            employees = employeeService.searchEmployees(keyword);
+        } else {
+            employees = employeeService.getAllEmployees();
+        }
         model.addAttribute("employees", employees);
+        model.addAttribute("keyword", keyword);
         return "employees";
+    }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Employee> searchEmployees(@RequestParam("keyword") String keyword) {
+        return employeeService.searchEmployees(keyword);
     }
 
     @GetMapping("/new")

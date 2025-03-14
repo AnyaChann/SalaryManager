@@ -1,10 +1,9 @@
 package com.salarymanager.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.salarymanager.model.Employee;
 import com.salarymanager.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,5 +28,9 @@ public class EmployeeService {
 
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    public List<Employee> searchEmployees(String keyword) {
+        return employeeRepository.findByFirstNameContainingOrLastNameContainingOrEmailContainingOrDepartmentContaining(keyword, keyword, keyword, keyword);
     }
 }

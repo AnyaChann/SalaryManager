@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employees</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 <div class="container">
     <h1>Employees</h1>
-    <a class="btn btn-primary" th:href="@{/employees/new}">Add Employee</a>
+    <form class="form-inline mb-3">
+        <input type="text" id="searchInput" class="form-control mr-2" placeholder="Search" th:value="${keyword}">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <a class="btn btn-primary mb-3" th:href="@{/employees/new}">Add Employee</a>
     <table class="table">
         <thead>
         <tr>
@@ -22,9 +27,9 @@
             <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="employeeTableBody">
         <tr th:if="${employees.isEmpty()}">
-            <td colspan="7" class="text-center">No employees found</td>
+            <td colspan="7" class="text-center">The db is currently empty  <a class="btn btn-primary mb-3" th:href="@{/employees/new}">Add Employee ?</a></td>
         </tr>
         <tr th:each="employee : ${employees}">
             <td th:text="${employee.id}"></td>
@@ -41,5 +46,41 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#searchInput').on('input', function() {
+            var keyword = $(this).val();
+            $.ajax({
+                url: '/employees/search',
+                type: 'GET',
+                data: { keyword: keyword },
+                success: function(data) {
+                    var tableBody = $('#employeeTableBody');
+                    tableBody.empty();
+                    if (data.length === 0) {
+                        tableBody.append('<tr><td colspan="7" class="text-center">No employees found</td></tr>');
+                    } else {
+                        $.each(data, function(index, employee) {
+                            var row = '<tr>' +
+                                '<td>' + employee.id + '</td>' +
+                                '<td>' + employee.firstName + '</td>' +
+                                '<td>' + employee.lastName + '</td>' +
+                                '<td>' + employee.email + '</td>' +
+                                '<td>' + employee.department + '</td>' +
+                                '<td>' + employee.salary + '</td>' +
+                                '<td>' +
+                                '<a class="btn btn-info" href="/employees/edit/' + employee.id + '">Edit</a> ' +
+                                '<a class="btn btn-danger" href="/employees/delete/' + employee.id + '">Delete</a>' +
+                                '</td>' +
+                                '</tr>';
+                            tableBody.append(row);
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
