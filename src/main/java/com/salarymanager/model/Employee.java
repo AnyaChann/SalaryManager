@@ -12,11 +12,22 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String email;
     private String department;
     private double salary;
+    private int age = 18; // Default age set to 18
+
+    public Employee() {
+    }
+
+    public Employee(String name, String email, String department, double salary, int age) {
+        this.name = name;
+        this.email = email;
+        this.department = department;
+        this.salary = salary;
+        this.age = age;
+    }
 
     // Add this method
     public void setId(Long id) {
@@ -31,31 +42,17 @@ public class Employee {
     }
 
     /**
-     * @return String return the firstName
+     * @return String return the name
      */
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
     /**
-     * @param firstName the firstName to set
+     * @param name the name to set
      */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @return String return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -100,4 +97,17 @@ public class Employee {
         this.salary = salary;
     }
 
+    /**
+     * @return int return the age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * @param age the age to set
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
 }

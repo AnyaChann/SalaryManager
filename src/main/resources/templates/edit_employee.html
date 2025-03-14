@@ -11,12 +11,8 @@
     <h1>Edit Employee</h1>
     <form th:action="@{/employees/{id}(id=${employee.id})}" th:object="${employee}" method="post">
         <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
-        </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}">
         </div>
         <div class="form-group">
             <label for="email">Email</label>
@@ -29,6 +25,10 @@
         <div class="form-group">
             <label for="salary">Salary</label>
             <input type="number" class="form-control" id="salary" th:field="*{salary}">
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" th:field="*{age}">
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
         <button type="reset" class="btn btn-secondary">Reset</button>

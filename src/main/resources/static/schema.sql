@@ -1,8 +1,8 @@
 CREATE TABLE employee (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(255) NOT NULL,
-    last_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     department VARCHAR(255) NOT NULL,
-    salary DOUBLE NOT NULL
+    salary DOUBLE NOT NULL,
+    age INT NOT NULL DEFAULT 18
 );

@@ -31,6 +31,6 @@ public class EmployeeService {
     }
 
     public List<Employee> searchEmployees(String keyword) {
-        return employeeRepository.findByFirstNameContainingOrLastNameContainingOrEmailContainingOrDepartmentContaining(keyword, keyword, keyword, keyword);
+        return employeeRepository.findByNameContainingOrEmailContainingOrDepartmentContaining(keyword, keyword, keyword);
     }
 }

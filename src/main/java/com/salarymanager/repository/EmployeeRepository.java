@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findByFirstNameContainingOrLastNameContainingOrEmailContainingOrDepartmentContaining(String firstName, String lastName, String email, String department);
+    List<Employee> findByNameContainingOrEmailContainingOrDepartmentContaining(String name, String email, String department);
 }
