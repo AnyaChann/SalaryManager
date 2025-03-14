@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1>Edit Employee</h1>
-    <form th:action="@{/employees/{id}(id=${employee.id})}" th:object="${employee}" method="post">
+    <form th:action="@{/employees/{id}(id=${employee.id})}" th:object="${employee}" method="post" onsubmit="return confirmUpdate()">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" th:field="*{name}">
@@ -34,5 +34,11 @@
         <button type="reset" class="btn btn-secondary">Reset</button>
     </form>
 </div>
+
+<script>
+    function confirmUpdate() {
+        return confirm('Are you sure you want to update this employee?');
+    }
+</script>
 </body>
 </html>
