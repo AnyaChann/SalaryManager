@@ -1,78 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Employee</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Edit Employee</h1>
-      <a class="btn btn-secondary" th:href="@{/employees}">Back Home</a>
-      <form
-        th:action="@{/employees/{id}(id=${employee.id})}"
-        th:object="${employee}"
-        method="post"
-        onsubmit="return confirmUpdate()"
-      >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Employee</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Create Employee</h1>
+    <a class="btn btn-secondary" th:href="@{/employees}">Home</a>
+    <form th:action="@{/employees}" th:object="${employee}" method="post">
         <div class="form-group">
-          <label for="name">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            th:field="*{name}"
-          />
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}">
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            th:field="*{email}"
-          />
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}">
         </div>
         <div class="form-group">
-          <label for="department">Department</label>
-          <input
-            type="text"
-            class="form-control"
-            id="department"
-            th:field="*{department}"
-          />
+            <label for="department">Department</label>
+            <input type="text" class="form-control" id="department" th:field="*{department}">
         </div>
         <div class="form-group">
-          <label for="salary">Salary</label>
-          <input
-            type="number"
-            class="form-control"
-            id="salary"
-            th:field="*{salary}"
-          />
+            <label for="salary">Salary</label>
+            <input type="number" class="form-control" id="salary" th:field="*{salary}">
         </div>
         <div class="form-group">
-          <label for="age">Age</label>
-          <input
-            type="number"
-            class="form-control"
-            id="age"
-            th:field="*{age}"
-          />
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" th:field="*{age}" value="18">
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Save</button>
         <button type="reset" class="btn btn-secondary">Reset</button>
-      </form>
-    </div>
-
-    <script>
-      function confirmUpdate() {
-        return confirm("Are you sure you want to update this employee?");
-      }
-    </script>
-  </body>
+    </form>
+</div>
+</body>
 </html>
